@@ -19,24 +19,40 @@
 (defn purchases-html [purchases]
   [:html
    [:body
-    [:a {:href "/"} "All "]
-    [:a {:href "/Furniture"} "Furniture "]
-    [:a {:href "/Alcohol"} "Alcohol "]
-    [:a {:href "/Toiletries"} "Toiletries "]
-    [:a {:href "/Shoes"} "Shoes "]
-    [:a {:href "/Food"} "Food "]
-    [:a {:href "/Jewelry"} "Jewelry "]
+    [:a {:href "/"} "All"]
+    " "
+    [:a {:href "/Furniture"} "Furniture"]
+    " "
+    [:a {:href "/Alcohol"} "Alcohol"]
+    " "
+    [:a {:href "/Toiletries"} "Toiletries"]
+    " "
+    [:a {:href "/Shoes"} "Shoes"]
+    " "
+    [:a {:href "/Food"} "Food"]
+    " "
+    [:a {:href "/Jewelry"} "Jewelry"]
     [:br]
     [:br]
-    [:ul
-     (map (fn [line]
-            [:li (str (get line "customer_id") " " (get line "date") " " (get line "credit_card")
-                   " " (get line "cvv") " " (get line "category"))])
-       purchases)]]])
+    [:table
+     [:tr
+      [:th "Customer Id"]
+      [:th "Date"]
+      [:th "Credit Card"]
+      [:th "CVV"]
+      [:th "Category"]]
+     (map (fn [purchase]
+            [:tr
+               [:td (get purchase "customer_id")] 
+               [:td (get purchase "date")] 
+               [:td (get purchase "credit_card")]    
+               [:td (get purchase "cvv")] 
+               [:td (get purchase "category")]])
+       purchases)]]])   
      
 (defn filter-by-category [purchases category]
-  (filter (fn [line]
-            (= (get line "category") category))
+  (filter (fn [purchase]
+            (= (get purchase "category") category))
     purchases))
 
 (c/defroutes app
